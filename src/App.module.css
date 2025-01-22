@@ -1,0 +1,31 @@
+.container_header{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    margin: 30px 10px;
+    
+}
+
+.container_header_text{
+    color: rgb(59, 53, 23);
+    font-size: 3rem;
+    text-decoration: underline;
+}
+
+.container_main{
+    margin: 20px 10px;
+    border: 20px;
+}
+
+.container_main_todo{
+    color: rgb(59, 53, 23);
+    background-color: rgb(181, 176, 152);
+    border-radius: 30px;
+    height: 70px;
+    width: 70%;
+    text-transform: capitalize;
+    padding: 20px 20px;
+    font-size: 1.5rem;
+    margin:20px  auto;
+
+}
