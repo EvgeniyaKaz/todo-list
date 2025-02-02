@@ -1,18 +1,21 @@
 import styles from "./block-todos.module.css";
 
-export const SortingAndSearchingButtons = ({ sortTask, searchText }) => {
+export const SortingAndSearchingButtons = ({
+	startSearching,
+	startSorting,
+}) => {
 	return (
 		<>
 			<div className={styles.butt}>
 				<button
 					className={styles["container_header_button"]}
-					onClick={sortTask}
+					onClick={startSorting}
 				>
 					Сортировать
 				</button>
 				<button
 					className={styles["container_header_button"]}
-					onClick={searchText}
+					onClick={startSearching}
 				>
 					Найти
 				</button>

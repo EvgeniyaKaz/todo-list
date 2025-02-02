@@ -1,10 +1,21 @@
 import styles from "./block-todos.module.css";
 
-export const Todo = ({ id, status, title, refreshTodos, updateTask }) => {
-	const deleteTask = (numberId) => {
-		const idTodo = numberId.id;
+export const Todo = ({ id, title, refreshTodos, inputValue }) => {
+	const startChange = (id) => {
+		const url = "http://localhost:3005/todos/" + id;
 
-		const url = "http://localhost:3005/todos/" + idTodo;
+		fetch(url, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json;charset=utf-8" },
+			body: JSON.stringify({
+				title: inputValue,
+				isChange: true,
+			}),
+		}).then(() => refreshTodos());
+	};
+
+	const deleteTask = () => {
+		const url = `${"http://localhost:3005/todos/"}${id}`;
 
 		fetch(url, {
 			method: "DELETE",
@@ -20,13 +31,12 @@ export const Todo = ({ id, status, title, refreshTodos, updateTask }) => {
 			</span>
 			<button
 				className={styles["container_main_todo_button"]}
-				onClick={() => updateTask({ id })}
-				disabled={status === true ? true : false}
+				onClick={() => startChange(id)}
 			>
 				Изменить
 			</button>
 			<button
-				onClick={() => deleteTask({ id })}
+				onClick={() => deleteTask()}
 				className={styles["container_main_todo_button"]}
 			>
 				Удалить

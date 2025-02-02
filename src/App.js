@@ -1,21 +1,16 @@
 import styles from "./App.module.css";
 import { useEffect, useState } from "react";
-import { Form, TodosList } from "./components";
+import { NewTaskForm, TodosList } from "./components";
 
 function App() {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [refreshTodoFlag, setRefreshTodoFlag] = useState(false);
+	const [isRefreshTodoFlag, setIsRefreshTodoFlag] = useState(false);
 	const [inputValue, setInputValue] = useState("");
-	const [isValid, setIsValid] = useState(true);
-	const [isSorted, setIsSorted] = useState(false);
-	const [searchPhrase, setSearchPhrase] = useState(false);
+	const [isSort, setIsSort] = useState(false);
+	const [isSearchPhrase, setIsSearchPhrase] = useState(false);
 
-	const refreshTodos = () => setRefreshTodoFlag(!refreshTodoFlag);
-
-	const searchTask = todos.filter((task) => {
-		return task.title.toLowerCase().includes(inputValue.toLowerCase());
-	});
+	const refreshTodos = () => setIsRefreshTodoFlag(!isRefreshTodoFlag);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -29,66 +24,46 @@ function App() {
 				console.log(error);
 			})
 			.finally(() => setIsLoading(false));
+	}, [isRefreshTodoFlag, inputValue]);
 
-		if (inputValue.length > 3 && inputValue !== "") {
-			return setIsValid(false);
-		} else {
-			return setIsValid(true);
-		}
-	}, [refreshTodoFlag, isValid, inputValue]);
-
-	const addTask = (event) => {
-		event.preventDefault();
-
-		fetch("http://localhost:3005/todos", {
-			method: "POST",
-			headers: { "Content-Type": "application/json;charset=utf-8" },
-			body: JSON.stringify({
-				title: inputValue,
-				status: false,
-			}),
-		})
-			.then(() => refreshTodos())
-			.finally(() => setInputValue(""));
+	const sortTodos = (todos) => {
+		const sortArray = todos.sort((a, b) => (a.title > b.title ? 1 : -1));
+		return sortArray;
 	};
 
-	const sortTask = () => {
-		setIsSorted(!isSorted);
-
-		const newTodo = [...todos];
-
-		const sortArray = newTodo.sort((a, b) => (a.title > b.title ? 1 : -1));
-
-		if (isSorted) {
-			setTodos(sortArray);
-		}
+	const startSorting = () => {
+		return setIsSort(!isSort);
 	};
 
-	const searchText = () => {
-		setSearchPhrase(!searchPhrase);
-
-		setTodos(searchTask);
+	const startSearching = () => {
+		return setIsSearchPhrase(!isSearchPhrase);
 	};
+
+	const searchTodos = todos.filter((todo) => {
+		return todo.title.toLowerCase().includes(inputValue.toLowerCase());
+	});
+
+	const sortedArrayTodos = isSort ? sortTodos(todos) : todos;
+
+	const arrayOfTodos = isSearchPhrase ? searchTodos : sortedArrayTodos;
 
 	return (
 		<>
 			<div className={styles.container}>
 				<header>
-					<Form
-						addTask={addTask}
+					<NewTaskForm
 						inputValue={inputValue}
 						setInputValue={setInputValue}
-						isValid={isValid}
+						refreshTodos={refreshTodos}
 					/>
 				</header>
 				<main>
 					<TodosList
-						todos={todos}
 						isLoading={isLoading}
-						searchTask={searchTask}
-						sortTask={sortTask}
 						refreshTodos={refreshTodos}
-						searchText={searchText}
+						startSearching={startSearching}
+						startSorting={startSorting}
+						arrayOfTodos={arrayOfTodos}
 						inputValue={inputValue}
 					/>
 				</main>
