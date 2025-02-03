@@ -1,4 +1,3 @@
-import styles from "./App.module.css";
 import { useEffect, useState } from "react";
 import { NewTaskForm, TodosList } from "./components";
 
@@ -49,7 +48,7 @@ function App() {
 
 	return (
 		<>
-			<div className={styles.container}>
+			<div>
 				<header>
 					<NewTaskForm
 						inputValue={inputValue}
