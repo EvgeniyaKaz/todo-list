@@ -1,4 +1,4 @@
-import styles from "./block-todos.module.css";
+import styles from "./editing-form.module.css";
 import { useState } from "react";
 
 export const EditingForm = ({ id, refreshTodos }) => {
@@ -14,7 +14,7 @@ export const EditingForm = ({ id, refreshTodos }) => {
 			headers: { "Content-Type": "application/json;charset=utf-8" },
 			body: JSON.stringify({
 				title: value,
-				isChange: false
+				isChange: false,
 			}),
 		})
 			.then(() => refreshTodos())

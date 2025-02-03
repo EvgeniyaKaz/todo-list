@@ -1,0 +1,13 @@
+.butt{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container_header_button{
+	width:10%;
+	margin: 10px 10px;
+	height: 50.5px;
+	background-color: rgb(164, 176, 137);
+	border: 0.5px solid rgb(164, 176, 137);
+}

@@ -1,4 +1,4 @@
-import styles from "./block-todos.module.css";
+import styles from "./todo.module.css";
 
 export const Todo = ({ id, title, refreshTodos, inputValue }) => {
 	const startChange = (id) => {

@@ -1,7 +1,5 @@
-import styles from "./block-todos.module.css";
-import { SortingAndSearchingButtons } from "./sorting-and-searching-buttons";
-import { EditingForm } from "./editing-form";
-import { Todo } from "./todo";
+import styles from "./todos-list.module.css";
+import { SortingAndSearchingButtons, EditingForm, Todo } from "./components";
 
 export const TodosList = ({
 	isLoading,

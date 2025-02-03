@@ -1,4 +1,4 @@
-import styles from "../App.module.css";
+import styles from "./new-task-form.module.css";
 
 export const NewTaskForm = ({ refreshTodos, inputValue, setInputValue }) => {
 	const addTodo = (event) => {

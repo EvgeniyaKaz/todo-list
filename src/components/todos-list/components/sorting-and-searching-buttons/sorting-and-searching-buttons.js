@@ -1,4 +1,4 @@
-import styles from "./block-todos.module.css";
+import styles from "./sorting-and-searching-buttons.module.css";
 
 export const SortingAndSearchingButtons = ({
 	startSearching,
