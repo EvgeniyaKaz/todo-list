@@ -1,8 +1,15 @@
 import styles from "./App.module.css";
 import { useEffect, useState } from "react";
-import { NewTaskForm, TodosList } from "./components";
+import {
+	NewTaskForm,
+	SortingAndSearchingButtons,
+	TodosList,
+	NotFound,
+} from "./components";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Todo } from "./components/block-todos";
 
-function App() {
+const MainPage = () => {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isRefreshTodoFlag, setIsRefreshTodoFlag] = useState(false);
@@ -49,24 +56,38 @@ function App() {
 
 	return (
 		<>
+			<header>
+				<NewTaskForm
+					inputValue={inputValue}
+					setInputValue={setInputValue}
+					refreshTodos={refreshTodos}
+				/>
+			</header>
+			<main>
+				<SortingAndSearchingButtons
+					startSearching={startSearching}
+					startSorting={startSorting}
+				/>
+				<TodosList
+					isLoading={isLoading}
+					refreshTodos={refreshTodos}
+					arrayOfTodos={arrayOfTodos}
+				/>
+			</main>
+		</>
+	);
+};
+
+function App() {
+	return (
+		<>
 			<div className={styles.container}>
-				<header>
-					<NewTaskForm
-						inputValue={inputValue}
-						setInputValue={setInputValue}
-						refreshTodos={refreshTodos}
-					/>
-				</header>
-				<main>
-					<TodosList
-						isLoading={isLoading}
-						refreshTodos={refreshTodos}
-						startSearching={startSearching}
-						startSorting={startSorting}
-						arrayOfTodos={arrayOfTodos}
-						inputValue={inputValue}
-					/>
-				</main>
+				<Routes>
+					<Route path="/" element={<MainPage />} />
+					<Route path="todo/:id" element={<Todo />} />
+					<Route path="/404" element={<NotFound />} />
+					<Route path="*" element={<Navigate to="/404" />} />
+				</Routes>
 			</div>
 		</>
 	);
