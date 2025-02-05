@@ -1,5 +1,5 @@
 import styles from "./todos-list.module.css";
-import { SortingAndSearchingButtons, EditingForm, Todo } from "./components";
+import { SortingAndSearchingButtons, Todo } from "./components";
 
 export const TodosList = ({
 	isLoading,
@@ -7,7 +7,6 @@ export const TodosList = ({
 	startSearching,
 	startSorting,
 	arrayOfTodos,
-	inputValue,
 }) => {
 	return (
 		<>
@@ -22,22 +21,14 @@ export const TodosList = ({
 				{isLoading ? (
 					<div className={styles.loader}></div>
 				) : (
-					arrayOfTodos.map(({ title, id, isChange }) => (
-						<li className={styles["container_main_todo"]} key={id}>
-							{isChange ? (
-								<EditingForm
-									id={id}
-									refreshTodos={refreshTodos}
-								/>
-							) : (
-								<Todo
-									id={id}
-									title={title}
-									refreshTodos={refreshTodos}
-									inputValue={inputValue}
-								/>
-							)}
-						</li>
+					arrayOfTodos.map(({ title, id }) => (
+						<div key={id}>
+							<Todo
+								id={id}
+								title={title}
+								refreshTodos={refreshTodos}
+							/>
+						</div>
 					))
 				)}
 			</ul>

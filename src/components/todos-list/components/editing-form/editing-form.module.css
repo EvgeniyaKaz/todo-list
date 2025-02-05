@@ -1,11 +1,17 @@
 .container_main_todo_input{
-	display: inline-block;
-	width:73%;
+	margin-right: 10px;
+	height: 30px;
+	width:100%;
 	background-color: rgb(181, 176, 152);
 }
 
-.container_main_todo_input{
-	display: inline-block;
-	width:73%;
-	background-color: rgb(181, 176, 152);
+.container_main_todo_button{
+	height: 30px;
+	background-color: #edede4;
+	border: 0.5px solid #edede4;
+}
+
+.form{
+	display: flex;
+	width:100%;
 }

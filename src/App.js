@@ -63,7 +63,6 @@ function App() {
 						startSearching={startSearching}
 						startSorting={startSorting}
 						arrayOfTodos={arrayOfTodos}
-						inputValue={inputValue}
 					/>
 				</main>
 			</div>

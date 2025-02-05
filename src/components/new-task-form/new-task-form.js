@@ -9,7 +9,6 @@ export const NewTaskForm = ({ refreshTodos, inputValue, setInputValue }) => {
 			headers: { "Content-Type": "application/json;charset=utf-8" },
 			body: JSON.stringify({
 				title: inputValue,
-				isChange: false,
 			}),
 		})
 			.then(() => refreshTodos())

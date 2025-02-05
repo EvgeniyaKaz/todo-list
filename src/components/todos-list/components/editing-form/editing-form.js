@@ -1,8 +1,8 @@
 import styles from "./editing-form.module.css";
 import { useState } from "react";
 
-export const EditingForm = ({ id, refreshTodos }) => {
-	const [value, setValue] = useState("");
+export const EditingForm = ({ id, refreshTodos, title }) => {
+	const [newTitle, setNewTitle] = useState(title);
 
 	const changeTaskText = (event) => {
 		event.preventDefault();
@@ -13,29 +13,28 @@ export const EditingForm = ({ id, refreshTodos }) => {
 			method: "PATCH",
 			headers: { "Content-Type": "application/json;charset=utf-8" },
 			body: JSON.stringify({
-				title: value,
-				isChange: false,
+				title: newTitle,
 			}),
 		})
 			.then(() => refreshTodos())
-			.finally(() => setValue(""));
+			.finally(() => setNewTitle(""));
 	};
 
 	return (
 		<>
-			<form onSubmit={changeTaskText}>
+			<form onSubmit={changeTaskText} className={styles.form}>
 				<input
 					className={styles["container_main_todo_input"]}
-					value={value}
+					value={newTitle}
 					key={id}
 					type="text"
-					onChange={({ target }) => setValue(target.value)}
+					onChange={({ target }) => setNewTitle(target.value)}
 				/>
 				<button
 					className={styles["container_main_todo_button"]}
 					type="submit"
 				>
-					Готово
+					✔
 				</button>
 			</form>
 		</>
