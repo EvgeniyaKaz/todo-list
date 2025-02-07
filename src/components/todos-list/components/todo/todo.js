@@ -1,46 +1,65 @@
 import styles from "./todo.module.css";
+import { EditingForm } from "../editing-form/editing-form";
+import { useParams, Link } from "react-router-dom";
+import { useState } from "react";
 
-export const Todo = ({ id, title, refreshTodos, inputValue }) => {
-	const startChange = (id) => {
-		const url = "http://localhost:3005/todos/" + id;
+export const Todo = ({ refreshTodos, arrayOfTodos, setIsClick }) => {
+	const [isEditing, setIsEditing] = useState(false);
+	const [isBack, setIsBack] = useState(false);
 
-		fetch(url, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json;charset=utf-8" },
-			body: JSON.stringify({
-				title: inputValue,
-				isChange: true,
-			}),
-		}).then(() => refreshTodos());
-	};
-
-	const deleteTask = () => {
+	const deleteTask = (id) => {
 		const url = `${"http://localhost:3005/todos/"}${id}`;
 
 		fetch(url, {
 			method: "DELETE",
 		}).finally(() => refreshTodos());
 	};
+
+	const onTodoEdit = () => {
+		setIsEditing(true);
+	};
+
+	const params = useParams();
+
+	const idTodo = params.id;
+
+	const todo = arrayOfTodos.filter((item) => item.id === idTodo);
+
+	const returnToPreviousPage = () => {
+		setIsClick(false);
+		setIsBack(true);
+	};
+
 	return (
 		<>
-			<span
-				key={id}
-				className={styles["container_main_todo_active-todo"]}
-			>
-				{title}
-			</span>
-			<button
-				className={styles["container_main_todo_button"]}
-				onClick={() => startChange(id)}
-			>
-				Изменить
+			<button onClick={returnToPreviousPage} className={styles.button}>
+				<Link to="/" className={styles.button}>
+					⬅
+				</Link>
 			</button>
-			<button
-				onClick={() => deleteTask()}
-				className={styles["container_main_todo_button"]}
-			>
-				Удалить
-			</button>
+			{todo.map(({ id, title }) => (
+				<div key={id} className={styles["container_main_todo"]}>
+					{isEditing ? (
+						<EditingForm
+							id={id}
+							refreshTodos={refreshTodos}
+							title={title}
+						/>
+					) : (
+						<div key={id} className={styles.div}>
+							<span onClick={onTodoEdit} className={styles.title}>
+								{title}
+							</span>
+							<button
+								onClick={() => deleteTask(id)}
+								className={styles["container_main_todo_button"]}
+							>
+								🞪
+							</button>
+						</div>
+					)}
+				</div>
+			))}
 		</>
 	);
 };

@@ -17,12 +17,22 @@
 }
 
 .container_main_todo{
+	display: flex;
     color: rgb(59, 53, 23);
     background-color: rgb(181, 176, 152);
     width: 50%;
     padding: 20px 20px;
     font-size: 1.5rem;
     margin:20px  auto;
+}
+
+.container_main_todo_text-todo{
+	max-width:100% ;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	color:  rgb(59, 53, 23);
+	text-decoration: none
 }
 
 .loader{

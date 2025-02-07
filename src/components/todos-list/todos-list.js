@@ -1,5 +1,7 @@
 import styles from "./todos-list.module.css";
-import { SortingAndSearchingButtons, EditingForm, Todo } from "./components";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { SortingAndSearchingButtons, Todo } from "./components";
 
 export const TodosList = ({
 	isLoading,
@@ -7,8 +9,13 @@ export const TodosList = ({
 	startSearching,
 	startSorting,
 	arrayOfTodos,
-	inputValue,
 }) => {
+	const [isClick, setIsClick] = useState(false);
+
+	const clickOnTheButton = () => {
+		setIsClick(true);
+	};
+
 	return (
 		<>
 			<SortingAndSearchingButtons
@@ -21,22 +28,31 @@ export const TodosList = ({
 			<ul className={styles["container_main"]}>
 				{isLoading ? (
 					<div className={styles.loader}></div>
+				) : isClick ? (
+					<Todo
+						refreshTodos={refreshTodos}
+						arrayOfTodos={arrayOfTodos}
+						setIsClick={setIsClick}
+					/>
 				) : (
-					arrayOfTodos.map(({ title, id, isChange }) => (
+					arrayOfTodos.map(({ title, id }) => (
 						<li className={styles["container_main_todo"]} key={id}>
-							{isChange ? (
-								<EditingForm
-									id={id}
-									refreshTodos={refreshTodos}
-								/>
-							) : (
-								<Todo
-									id={id}
-									title={title}
-									refreshTodos={refreshTodos}
-									inputValue={inputValue}
-								/>
-							)}
+							<Link
+								to={`task/${id}`}
+								className={
+									styles["container_main_todo_text-todo"]
+								}
+							>
+								<span
+									key={id}
+									className={
+										styles["container_main_todo_text-todo"]
+									}
+									onClick={clickOnTheButton}
+								>
+									{title}
+								</span>
+							</Link>
 						</li>
 					))
 				)}

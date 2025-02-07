@@ -1,0 +1,19 @@
+.error{
+	margin: 150px auto;
+	text-align: center;
+}
+
+.error_404{
+	font-size: 5rem;
+	color: rgb(59, 53, 23);
+}
+
+.error_text{
+	font-size: 3rem;
+	color: rgb(59, 53, 23);
+}
+
+.error_text_two{
+	font-size: 2rem;
+	color: rgb(59, 53, 23);
+}

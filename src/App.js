@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { NewTaskForm, TodosList } from "./components";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { NewTaskForm, TodosList, NotFound } from "./components";
+import { Todo } from "./components/todos-list/components";
 
-function App() {
+const MainPage = () => {
 	const [todos, setTodos] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isRefreshTodoFlag, setIsRefreshTodoFlag] = useState(false);
@@ -63,9 +65,24 @@ function App() {
 						startSearching={startSearching}
 						startSorting={startSorting}
 						arrayOfTodos={arrayOfTodos}
-						inputValue={inputValue}
 					/>
 				</main>
+			</div>
+		</>
+	);
+};
+
+function App() {
+	return (
+		<>
+			<div>
+				<Routes>
+					<Route path="/" element={<MainPage />}>
+						<Route path="task/:id" element={<Todo />} />
+					</Route>
+					<Route path="/404" element={<NotFound />} />
+					<Route path="*" element={<Navigate to="/404" />} />
+				</Routes>
 			</div>
 		</>
 	);
